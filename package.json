@@ -1,0 +1,28 @@
+{
+  "name": "powered_persons_registry",
+  "version": "1.0.0",
+  "description": "Users sign in to discover if they have super abilities or not and are grouped together based on powers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Havamere/PoweredPersonRegistration.git"
+  },
+  "keywords": [
+    "express",
+    "angular",
+    "api",
+    "community",
+    "mongo",
+    "marvel",
+    "face++"
+  ],
+  "author": "Kyle Rinehart",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Havamere/PoweredPersonRegistration/issues"
+  },
+  "homepage": "https://github.com/Havamere/PoweredPersonRegistration#readme"
+}
