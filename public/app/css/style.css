@@ -1,0 +1,58 @@
+    /*Installs new font family*/
+@font-face {
+    font-family: Marvel;
+    src: url('Marvel.ttf');
+}
+
+body {
+	font-family: Marvel;
+
+}
+
+.jumbotron {
+	background-color: #ff0000  !important;
+	color: #fff;
+	text-align: center;
+}
+
+.jumbotron h1 {
+	letter-spacing: -2px;
+	word-spacing: 10px;
+}
+
+.hologram {
+	width: 250px;
+    height: 250px;
+    margin: 10px;
+    background-size: 500px;
+    background: url(../images/wireFrameHead2.jpg);
+    border-radius: 50%;
+    background-size: 200px;
+    box-shadow: inset 16px 0 40px 6px rgb(0, 0, 0),
+    inset -3px 0 6px 2px rgba(255, 255, 255, 0.2);
+    animation-name: rotate;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+    z-index: -1;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+@keyframes rotate {
+  from { background-position-x: 0px; }
+  to { background-position-x: 500px; }
+}
+
+.profilePics {
+	overflow: scroll;
+}
+
+.imageToScan {
+	width: 100%;
+	height: 250px;
+	border: 1px solid;
+}
+

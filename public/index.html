@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Power's Registration</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
-	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<meta charset="utf-8">
+	<title>PPR Sign-up</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="app/css/style.css">
 </head>
 <body>
-	<header>
-		<h2>Powered Individuals Community Page</h2>
-	</header>
-	<div id="main-content" class="container">
-		<div class="row">
+  <div class="col-sm-12">
+  	<div class="row">
+		<div class="col-sm-12">
 			<div class="jumbotron">
-				<h1>Your Name</h1></br>
-				<h4>Your Power(s)</h4></br>
-				<img>
+				<h1>Please sign up to create an account or sign in to your current account.</h1>
+				<div class="row">
+					<div class="col-sm-3 col-sm-offset-3">
+						<a href="#">
+							<div class="panel" id="signUp">
+								<h2>Sign-up</h2>
+							</div>
+						</a>
+					</div>
+					<div class="col-sm-3">
+						<a href="#">
+							<div class="panel" id="signIn">
+								<h2>Sign-in</h2>
+							</div>
+						</a>
+					</div>
+				</div>
 			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-10 col-sm-offset-1">
+			<div class="row">
+				<div class="col-sm-12">
+					<img class="center-block hologram" height="300px" width="30%">
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="push"></div>
-	<footer class="footer">
-		<p id="copyright">&copy;Copyright 2016 Kyle Rinehart</p>
-	</footer>
-	<script type="text/javascript" src="assets/javascript/app.js"></script>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase-auth.js"></script>
+<script src="app/js/app.js"></script>
+
 </body>
 </html>
