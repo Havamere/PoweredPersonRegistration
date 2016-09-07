@@ -6,16 +6,33 @@
 
 body {
 	font-family: Marvel;
-
 }
 
-.jumbotron {
+.no-margin {
+	margin: 0;
+}
+
+.no-padding {
+	padding: 0;
+}
+
+.border {
+	border: 1px red solid;
+}
+
+.panel {
+	text-align: center;
+	border: red 1px solid;
+	font-weight: bold;
+}
+
+.welcome {
 	background-color: #ff0000  !important;
 	color: #fff;
 	text-align: center;
 }
 
-.jumbotron h1 {
+.welcome h1 {
 	letter-spacing: -2px;
 	word-spacing: 10px;
 }
@@ -23,7 +40,7 @@ body {
 .hologram {
 	width: 250px;
     height: 250px;
-    margin: 10px;
+    margin: 10px auto 10px auto;
     background-size: 500px;
     background: url(../images/wireFrameHead2.jpg);
     border-radius: 50%;
@@ -56,3 +73,6 @@ body {
 	border: 1px solid;
 }
 
+#questionnaire {
+	
+}

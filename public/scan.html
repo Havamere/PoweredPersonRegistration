@@ -9,37 +9,127 @@
 <body>
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 header">
-			<div class="panel panel-default">
+			<div class="panel panel-default border">
 				<div class="panel-body">
-					<h1 style="text-align: center">Powers Identification Area</h1>
-					<h3 style="text-align: center">Here, we will use a picture of your face along with a questionnaire to determine:</h3>
-					<ul>
-						<li><p>Whether or not you have potential powers</p></li>
-						<li><p>What those powers may be</p></li>
-						<li><p>Where to train your potential powers</p></li>
-						<li><p>Who else in your area has similar powers</p></li>
-						<li><p>And you can be a local hero in your area</p></li>
-					</ul>
+					<h1>Powers Identification Area</h1>
+					<h3>Here, we will use a picture of your face along with a questionnaire to determine:</h3>
+					<p>Whether or not you have potential powers</p>
+					<p>What those powers may be</p>
+					<p>Where to train your potential powers</p>
+					<p>Who else in your area has similar powers</p>
+					<p>And how you can be a local hero in your area</p>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-7 col-sm-offset-1">
-			<div class="profilePics"></div>
+			<div class="profilePics">
+				<p>Please choose an image of yourself that is facing the camera, centered mostly on your face, and without sunglasses or SnapChat filters.  A clean, clear image of your face will work best.</p>
+			</div>
 		</div>
 		<div class="col-sm-3">
-			<div class="imageToScan"></div>
+			<div class="imageToScan" ondrop="drop(event)" ondragover="allowDrop(event)">
+			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-sm-10 col-sm-offset-1 questionnaire">
-			
+			<div class="well" id="questionnaire">
+				<h2><strong>Personality Questionnaire</strong></h2>
+					<h4><strong>Question 1</strong></h4>
+						<p>If you saw a crime in progress, you are likely to get involved.</p>
+							<select data-placeholder="" class="chosen-select" id="q1">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+					<h4><strong>Question 2</strong></h4>
+						<p>If you saw people in danger, you are likely to get involved.</p>
+							<select data-placeholder="" class="chosen-select" id="q2">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+					<h4><strong>Question 3</strong></h4>
+						<p>If you saw someone in need, you are likely to stop and help them.</p>
+							<select data-placeholder="" class="chosen-select" id="q3">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+					<h4><strong>Question 4</strong></h4>
+						<p>You value all life equally.</p>
+							<select data-placeholder="" class="chosen-select" id="q4">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+			      	<h4><strong>Question 5</strong></h4>
+						<p>You feel the need to protect those that cannot protect themselves.</p>
+							<select data-placeholder="" class="chosen-select" id="q5">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+			      	<h4><strong>Question 6</strong></h4>
+						<p>You prefer to help people more indirectly than directly.</p>
+							<select data-placeholder="" class="chosen-select" id="q6">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+			      	<h4><strong>Question 7</strong></h4>
+						<p>You prefer to help others help themselves.</p>
+							<select data-placeholder="" class="chosen-select" id="q7">
+						 		<option value=""></option>
+					            <option value="1">1 (Strongly Disagree)</option>
+					            <option value="2">2</option>
+					            <option value="3">3</option>
+					            <option value="4">4</option>
+					            <option value="5">5 (Strongly Agree)</option>
+					      	</select>
+			</div>
+			<button type="submit" id="submit" class="btn btn-danger btn-lg"><span class="glyphicon glyphicon-search"></span> Analyze</button>
 		</div>
 	</div>
 
-
+	<script src="https://code.jquery.com/jquery-3.1.0.js"   integrity="sha256-slogkvB1K3VOkzAI8QITxV3VzpOnkeNVsKvtkYLMjfk="   crossorigin="anonymous"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+	<script src="app/js/app.js"></script>
+	<script type="text/javascript">
+		function allowDrop(event) {
+	    	event.preventDefault();
+		}
 
+		function drag(event) {
+		    event.dataTransfer.setData("picture", event.target.id);
+		}
+
+		function drop(event) {
+		    event.preventDefault();
+		    var data = event.dataTransfer.getData("picture");
+		    console.log(data);
+		    event.target.appendChild(document.getElementById(data));
+		}
+	</script>
 </body>
 </html>
