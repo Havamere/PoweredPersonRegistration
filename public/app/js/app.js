@@ -1,24 +1,24 @@
 var matches = [
-	{name: 'Agent Hill', url: './images/Agent_Hill.jpg', id: '', powers: ['Aim Accuracy', 'Espionage']},
-	{name: 'Black Panther', url: './images/Black_Panter.jpg', id: '', powers: ['Agility', 'Martial Arts']},
-	{name: 'Black Widow', url: './images/Black_Widow.jpg', id: '', powers: ['Agility', 'Aim Accuracy', 'Espionage', 'Martial Arts']},
-	{name: 'Captain America', url: './images/Captain_America.jpg', id: '', powers: [ 'Agility', 'Aim Accuracy', 'Enhanced Healing', 'Martial Arts', 'Stamina', 'Strength']},
-	{name: 'Daredevil', url: './images/Daredevil.jpg', id: '', powers: ['Agility', 'Enhanced Senses', 'Martial Arts']},
-	{name: 'Doctor Strange', url: './images/Doctor_Strange.jpg', id: '', powers: ['Flight', 'Magic']},
-	{name: 'Hawkeye', url: './images/Hawkeye.jpg', id: '', powers: ['Agility', 'Aim Accuracy', 'Martial Arts', 'Strategist']},
-	{name: 'Jean Grey', url: './images/Jean_Grey.jpg', id: '', powers: ['Telekenisis', 'Telepathy']},
-	{name: 'Jessica Jones', url: './images/Jessica_Jones.jpg', id: '', powers: ['Endurance', 'Flight', 'Strength']},
-	{name: 'Loki', url: './images/loki.jpg', id: '', powers: ['Magic', 'Strength']},
-	{name: 'Powerman', url: './imagesPowerman.jpg', id: '', powers: ['Endurance', 'Invulnerability', 'Strength']},
-	{name: 'Professor Xavier', url: './images/Professor_Xavier.jpg', id: '', powers: ['Mind Control', 'Telepathy']},
-	{name: 'Punisher', url: './images/Punisher.jpg', id: '', powers: ['Aim Accuracy', 'Martial Arts', 'Strategist']},
-	{name: 'Quicksilver', url: './images/Quicksilver.jpg', id: '', powers: ['Speed']},
-	{name: 'Scarlet Witch', url: './images/scarlet_witch.jpg', id: '', powers: ['Magic']},
-	{name: 'Spiderman', url: './images/Spiderman.jpg', id: '', powers: ['Agility', 'Enhanced Senses', 'Strength']},
-	{name: 'Starlord', url: './images/Star_Lord.jpg', id: '', powers: ['Aim Accuracy', 'Luck', 'Strategist']},
-	{name: 'Storm', url: './images/Storm.jpg', id: '', powers: ['Flight', 'Weather Control']},
-	{name: 'Thor', url: './images/Thor.jpg', id: '', powers: ['Flight', 'Odin Force', 'Strength']},
-	{name: 'Wolverine', url: './images/Wolverine.png', id: '', powers: ['Enhanced Senses', 'Martial Arts', 'Regeneration']}
+	{name: 'Agent Hill', url: './images/Agent_Hill.jpg', powers: ['Aim Accuracy', 'Espionage']},
+	{name: 'Black Panther', url: './images/Black_Panter.jpg', powers: ['Agility', 'Martial Arts']},
+	{name: 'Black Widow', url: './images/Black_Widow.jpg', powers: ['Agility', 'Aim Accuracy', 'Espionage', 'Martial Arts']},
+	{name: 'Captain America', url: './images/Captain_America.jpg', powers: [ 'Agility', 'Aim Accuracy', 'Enhanced Healing', 'Martial Arts', 'Stamina', 'Strength']},
+	{name: 'Daredevil', url: './images/Daredevil.jpg', powers: ['Agility', 'Enhanced Senses', 'Martial Arts']},
+	{name: 'Doctor Strange', url: './images/Doctor_Strange.jpg', powers: ['Flight', 'Magic']},
+	{name: 'Hawkeye', url: './images/Hawkeye.jpg', powers: ['Agility', 'Aim Accuracy', 'Martial Arts', 'Strategist']},
+	{name: 'Jean Grey', url: './images/Jean_Grey.jpg', powers: ['Telekenisis', 'Telepathy']},
+	{name: 'Jessica Jones', url: './images/Jessica_Jones.jpg', powers: ['Endurance', 'Flight', 'Strength']},
+	{name: 'Loki', url: './images/loki.jpg', powers: ['Magic', 'Strength']},
+	{name: 'Powerman', url: './imagesPowerman.jpg', powers: ['Endurance', 'Invulnerability', 'Strength']},
+	{name: 'Professor Xavier', url: './images/Professor_Xavier.jpg', powers: ['Mind Control', 'Telepathy']},
+	{name: 'Punisher', url: './images/Punisher.jpg', powers: ['Aim Accuracy', 'Martial Arts', 'Strategist']},
+	{name: 'Quicksilver', url: './images/Quicksilver.jpg', powers: ['Speed']},
+	{name: 'Scarlet Witch', url: './images/scarlet_witch.jpg', powers: ['Flight', 'Magic']},
+	{name: 'Spiderman', url: './images/Spiderman.jpg', powers: ['Agility', 'Enhanced Senses', 'Strength']},
+	{name: 'Starlord', url: './images/Star_Lord.jpg', powers: ['Aim Accuracy', 'Luck', 'Strategist']},
+	{name: 'Storm', url: './images/Storm.jpg', powers: ['Flight', 'Weather Control']},
+	{name: 'Thor', url: './images/Thor.jpg', powers: ['Flight', 'Odin Force', 'Strength']},
+	{name: 'Wolverine', url: './images/Wolverine.png', powers: ['Enhanced Senses', 'Martial Arts', 'Regeneration']}
 ]
 
 //||General functions for index/sign-in page||\\
@@ -140,11 +140,40 @@ $('#signIn').click(function(){
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
+	console.log(user.photo);
+
+	var fppPhotoURL = user.photo.replace(/&/g, "%26");
+
 	//for (var i = 0; i < array.length; i++) {}
 	$('.profilePics').append("<img id='picture' src="+user.photo+" draggable='true' ondragstart='drag(event)'' width='200px' height='200px'>");
 
+	var key = '18465a9186327cab7d69e7d4e8daf163';
+	var secret = 'XJHHBsWyjDxwT-lhvauBkg4GlA7UNCvi';
+	var url = "https://apius.faceplusplus.com/v2/detection/detect?url="+fppPhotoURL+"&api_key="+key+"&api_secret="+secret+"&attribute=pose,gender,age,race";
+
 	$('#submit').on('click', function() {
-		var userProfile = 
+		$.ajax({
+			method: 'POST',
+			url: url,
+
+		}).done(function( detectData ) {
+			console.log(detectData);
+			var id = detectData.face[0].face_id;
+			var newURL = "https://apius.faceplusplus.com/v2/detection/landmark?api_key="+key+"&api_secret="+secret+"&face_id="+id+"&type=25p";
+
+			$.ajax({
+				method: 'POST',
+				url: newURL,
+			}).done(function( landmarkData ){
+				console.log(landmarkData);
+
+			})
+		})
+		var userProfile = {
+			'scores': [$('#q1').val(),$('#q2').val(),$('#q3').val(),$('#q4').val(),$('#q5').val(),$('#q6').val(),$('#q7').val()],
+			'profile_pic': ''+user.photo+'',
+			'powers': []
+		}
 	});
 });
 

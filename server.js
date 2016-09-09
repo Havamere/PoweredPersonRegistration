@@ -59,7 +59,7 @@ app.post('/signUp', function(req, res) {
 		//tests if user already exists
 		if (data.user == user.user) {
 			//tells user that user name already exists and redirects to sign-in path
-			res.json({error: "User already exists!", url: '/signIn'})
+			res.json({error: "User already exists!", url: '/index.html'})
 		} else {
 			//inserts new user if one was not found
 			db.poweredIndex.insert(user, function(err, saved) {
@@ -70,7 +70,7 @@ app.post('/signUp', function(req, res) {
 			    // otherwise, send the response to the client (for AJAX success function)
 			    else {
 			    	//sends user to scan page
-			      res.json({user: saved.user, url: '/scan'});
+			      res.json({user: saved.user, url: '/scan.html'});
 			    };
 			});
 		}
@@ -94,14 +94,14 @@ app.post('/signIn', function(req, res) {
 			//checks if data attribute for for scan page completed is true
 			if (data.completed === true) {
 				//informs user of welcom back, and re-directs user to profile page
-				res.json({msg: "Welcome back!", url: '/profile'})	
+				res.json({msg: "Welcome back!", url: '/profile.html'})	
 			} else {
 				//informs user that scan page was not completed, and redirects to scan page
 				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
 			}
 		} else {
 			//jupon no match found in DB, runs user through sign-up path
-			res.json({error: "User doesn't exist, please sign up!", url: '/signUp'})
+			res.json({error: "User doesn't exist, please sign up!", url: '/index.html'})
 		}
 	});
 });
