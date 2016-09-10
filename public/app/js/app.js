@@ -34,7 +34,7 @@ var config = {
 //Initiallizes firebase on the page
 firebase.initializeApp(config);
 
-//Create the provider object
+//Create the provider object *look at at window*
 var provider = new firebase.auth.FacebookAuthProvider();
 
 //Adds profile photo album as additional scope.  We will need these for the user to pick from for the scan
@@ -43,10 +43,13 @@ provider.addScope('user_location');
 
 
 $('#signUp').click(function(){
-
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-	  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-	  var token = result.credential.accessToken;
+	//sign-in by redirect
+	firebase.auth().getRedirectResult().then(function(result) {
+	  if (result.credential) {
+	    // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+	    var token = result.credential.accessToken;
+	    // ...
+	  }
 	  // The signed-in user info.
 	  var user = result.user;
 	  console.log(user);
@@ -62,7 +65,7 @@ $('#signUp').click(function(){
 
 	  //Creates a local storage spage for the user's info for the page's duration on the user's browser
 	  sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, location: userLocation}));
-
+	  
 	  	$.ajax({
 		  method: "POST",
 		  url: "/signUp",
@@ -75,7 +78,7 @@ $('#signUp').click(function(){
 		  	alert(data.msg);
 		  	window.location = data.url;
 		  });
-	  // ...
+		  
 	}).catch(function(error) {
 	  // Handle Errors here.
 	  var errorCode = error.code;
@@ -87,6 +90,24 @@ $('#signUp').click(function(){
 	  // ...
 	});
 
+	// firebase.auth().signInWithPopup(provider).then(function(result) {
+	//   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+	//   var token = result.credential.accessToken;
+	//   // The signed-in user info.
+	//   var user = result.user;
+
+
+	//   // ...
+	// }).catch(function(error) {
+	//   // Handle Errors here.
+	//   var errorCode = error.code;
+	//   var errorMessage = error.message;
+	//   // The email of the user's account used.
+	//   var email = error.email;
+	//   // The firebase.auth.AuthCredential type that was used.
+	//   var credential = error.credential;
+	//   // ...
+	// });
 });
 
 $('#signIn').click(function(){
