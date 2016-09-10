@@ -12,10 +12,9 @@
   },
   "keywords": [
     "express",
-    "angular",
     "api",
     "community",
-    "mongo",
+    "mongoDB",
     "marvel",
     "face++"
   ],
@@ -26,7 +25,6 @@
   },
   "homepage": "https://github.com/Havamere/PoweredPersonRegistration#readme",
   "dependencies": {
-    "angular": "^1.5.8",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "mongojs": "^2.3.0",
