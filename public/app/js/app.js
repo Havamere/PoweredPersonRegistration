@@ -138,7 +138,7 @@ $('#signIn').click(function(){
 
 //||JavaScript for Scan page||\\
 $(document).ready(function() {
-	if (user.photo != null) {
+	if (user.photo != null || user.photo != undefined) {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
 	console.log(user.photo);
