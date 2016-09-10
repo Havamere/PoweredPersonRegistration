@@ -110,6 +110,10 @@ $('#signUp').click(function(){
 	//   var credential = error.credential;
 	//   // ...
 	// });
+	firebase.auth().signOut().then(function() {
+	  // Sign-out successful.
+	}, function(error) {
+	  // An error happened.
 });
 
 $('#signIn').click(function(){
@@ -179,7 +183,11 @@ $('#signIn').click(function(){
 	//   var credential = error.credential;
 	//   // ...
 	// });
-
+	firebase.auth().signOut().then(function() {
+	  // Sign-out successful.
+	}, function(error) {
+	  // An error happened.
+});
 });
 
 //Sign-out Button
