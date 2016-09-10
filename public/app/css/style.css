@@ -1,7 +1,7 @@
     /*Installs new font family*/
 @font-face {
     font-family: Marvel;
-    src: url('.//Marvel.ttf');
+    src: url('./Marvel.TTF');
 }
 
 body {
