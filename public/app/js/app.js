@@ -111,9 +111,10 @@ $('#signUp').click(function(){
 	//   // ...
 	// });
 	firebase.auth().signOut().then(function() {
-	  // Sign-out successful.
-	}, function(error) {
-	  // An error happened.
+		  // Sign-out successful.
+		}, function(error) {
+		  // An error happened.
+		});
 });
 
 $('#signIn').click(function(){
@@ -184,15 +185,8 @@ $('#signIn').click(function(){
 	//   // ...
 	// });
 	firebase.auth().signOut().then(function() {
-	  // Sign-out successful.
-	}, function(error) {
-	  // An error happened.
-});
-});
-
-//Sign-out Button
-firebase.auth().signOut().then(function() {
-  // Sign-out successful.
-}, function(error) {
-  // An error happened.
+		  // Sign-out successful.
+		}, function(error) {
+		  // An error happened.
+		});
 });
