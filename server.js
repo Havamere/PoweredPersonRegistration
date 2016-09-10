@@ -106,6 +106,21 @@ app.post('/signIn', function(req, res) {
 	});
 });
 
+app.post('/update', function(req, res) {
+	var updateUser = req.body;
+	console.log(updateUser);
+
+	db.poweredIndex.findOne({"user": updateUser.user}, function(err, data) {
+		//shows errors
+		if (err) console.log(err);
+		//confirms data
+		console.log(data);
+
+		db.poweredIndex.update({"user": updateUser.user})
+
+	});
+})
+
 // Listener
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
