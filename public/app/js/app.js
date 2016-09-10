@@ -138,6 +138,7 @@ $('#signIn').click(function(){
 
 //||JavaScript for Scan page||\\
 $(document).ready(function() {
+	if (user.photo != null) {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
 	console.log(user.photo);
@@ -146,6 +147,7 @@ $(document).ready(function() {
 
 	//for (var i = 0; i < array.length; i++) {}
 	$('.profilePics').append("<img id='picture' src="+user.photo+" draggable='true' ondragstart='drag(event)'' width='200px' height='200px'>");
+	};
 
 	var key = '18465a9186327cab7d69e7d4e8daf163';
 	var secret = 'XJHHBsWyjDxwT-lhvauBkg4GlA7UNCvi';
