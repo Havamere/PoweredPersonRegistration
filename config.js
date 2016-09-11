@@ -1,4 +1,4 @@
 module.exports = {
-	dbURI: "heroku_l1pvtjlh:kcfdbipd5njpncig6vc99qevpu@ds139685.mlab.com:39685/heroku_l1pvtjlh",
+	dbURI: "heroku_p3lkxd22:3s08qo57uvane1fe15ll64h2k1@ds029446.mlab.com:29446/heroku_p3lkwd22",
 	collections: 'PowersIndex'
 }

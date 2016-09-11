@@ -120,7 +120,7 @@ app.post('/update', function(req, res) {
 		//confirms data
 		console.log(data);
 
-		db.poweredIndex.update({"user": updateUser.user})
+		//db.poweredIndex.update({"user": updateUser.user}, {$push:  })
 
 	});
 })
