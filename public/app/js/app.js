@@ -44,130 +44,99 @@ provider.addScope('user_location');
 
 $('#Log-in').click(function(){
 	console.log("button clicked");
+	window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '638211789673829',
+      xfbml      : true,
+      version    : 'v2.7'
+    });
 
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-	  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-	  var token = result.credential.accessToken;
-	  // The signed-in user info.
-	  var user = result.user;
+    FB.getLoginStatus(function(response) {
+    	statusChangeCallback(response);
+  	});
+  };
 
-	//sign-in by redirect
-	// firebase.auth().getRedirectResult().then(function(result) {
-	// 	console.log("attempting log in")
-	//   if (result.credential) {
-	//     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-	//     var token = result.credential.accessToken;
-	//     // ...
-	//   }
-	  // The signed-in user info.
-	  var user = result.user;
-	  console.log(user);
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
 
-	  var userName = result.user.displayName;
-	  //console.log(userName);
+  // Here we run a very simple test of the Graph API after login is
+  // successful.  See statusChangeCallback() for when this call is made.
+  function testAPI() {
+    console.log('Welcome!  Fetching your information.... ');
+    FB.api('/me', function(response) {
+      console.log(response);
+      console.log(response.picture);
+      console.log('Successful login for: ' + response.name);
+      document.getElementById('status').innerHTML =
+        'Thanks for logging in, ' + response.name + '!';
+    });
+  }
 
-	  var userEmail = result.user.email;
+	// firebase.auth().signInWithPopup(provider).then(function(result) {
+	//   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+	//   var token = result.credential.accessToken;
+	//   // The signed-in user info.
+	//   var user = result.user;
 
-	  var userPhoto = result.user.photoURL;
+	// //sign-in by redirect
+	// // firebase.auth().getRedirectResult().then(function(result) {
+	// // 	console.log("attempting log in")
+	// //   if (result.credential) {
+	// //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+	// //     var token = result.credential.accessToken;
+	// //     // ...
+	// //   }
+	//   // The signed-in user info.
+	//   var user = result.user;
+	//   console.log(user);
 
-	  var userLocation = result.user.location;
+	//   var userName = result.user.displayName;
+	//   //console.log(userName);
 
-	  //Creates a local storage spage for the user's info for the page's duration on the user's browser
-	  sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, location: userLocation}));
+	//   var userEmail = result.user.email;
+
+	//   var userPhoto = result.user.photoURL;
+
+	//   var userLocation = result.user.location;
+
+	//   //Creates a local storage spage for the user's info for the page's duration on the user's browser
+	//   sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, location: userLocation}));
 	  
-	  	$.ajax({
-		  method: "POST",
-		  url: "/signUp",
-		  data: {user: userName, email: userEmail, profilePic: userPhoto}
-		})
-		  .done(function( data ) {
-		  	if (data.error) {
-		  		alert(data.error);
-		  	}
-		  	alert(data.msg);
-		  	window.location = data.url;
-		  });
+	//   	$.ajax({
+	// 	  method: "POST",
+	// 	  url: "/signUp",
+	// 	  data: {user: userName, email: userEmail, profilePic: userPhoto}
+	// 	})
+	// 	  .done(function( data ) {
+	// 	  	if (data.error) {
+	// 	  		alert(data.error);
+	// 	  	}
+	// 	  	alert(data.msg);
+	// 	  	window.location = data.url;
+	// 	  });
 
-	}).catch(function(error) {
-	  // Handle Errors here.
-	  var errorCode = error.code;
-	  var errorMessage = error.message;
-	  // The email of the user's account used.
-	  var email = error.email;
-	  // The firebase.auth.AuthCredential type that was used.
-	  var credential = error.credential;
-	  // ...
-	});
+	// }).catch(function(error) {
+	//   // Handle Errors here.
+	//   var errorCode = error.code;
+	//   var errorMessage = error.message;
+	//   // The email of the user's account used.
+	//   var email = error.email;
+	//   // The firebase.auth.AuthCredential type that was used.
+	//   var credential = error.credential;
+	//   // ...
+	// });
 
-	firebase.auth().signOut().then(function() {
-		  // Sign-out successful.
-		}, function(error) {
-		  // An error happened.
-		});
+	// firebase.auth().signOut().then(function() {
+	// 	  // Sign-out successful.
+	// 	}, function(error) {
+	// 	  // An error happened.
+	// 	});
 
-});
-
-$('#signIn').click(function(){
-	console.log("button clicked");
-	//Sign-in via pop-up
-	firebase.auth().signInWithPopup(provider).then(function(result) {
-	  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-	  var token = result.credential.accessToken;
-	  // The signed-in user info.
-	  var user = result.user;
-
-	//sign-in by redirect
-	// firebase.auth().getRedirectResult().then(function(result) {
-	//   if (result.credential) {
-	//     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-	//     var token = result.credential.accessToken;
-	//     // ...
-	//   }
-	  // The signed-in user info.
-	  var user = result.user;
-	  console.log(user);
-
-	  var userName = result.user.displayName;
-	  //console.log(userName);
-
-	  var userEmail = result.user.email;
-
-	  var userPhoto = result.user.photoURL;
-
-	  var userLocation = result.user.location;
-
-	  //Creates a local storage spage for the user's info for the page's duration on the user's browser
-	  sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, location: userLocation}));
-	  
-	  	$.ajax({
-		  method: "POST",
-		  url: "/signIn",
-		  data: {user: userName, email: userEmail, profilePic: userPhoto}
-		})
-		  .done(function( data ) {
-		  	if (data.error) {
-		  		alert(data.error);
-		  	}
-		  	alert(data.msg);
-		  	window.location = data.url;
-		  });
-		  
-	}).catch(function(error) {
-	  // Handle Errors here.
-	  var errorCode = error.code;
-	  var errorMessage = error.message;
-	  // The email of the user's account used.
-	  var email = error.email;
-	  // The firebase.auth.AuthCredential type that was used.
-	  var credential = error.credential;
-	  // ...
-	});
-
-	firebase.auth().signOut().then(function() {
-		  // Sign-out successful.
-		}, function(error) {
-		  // An error happened.
-		});
 });
 
 // This is called with the results from from FB.getLoginStatus().
@@ -225,6 +194,7 @@ $('#signIn').click(function(){
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
       console.log(response);
+      console.log(response.picture);
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
