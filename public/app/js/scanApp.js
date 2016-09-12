@@ -2,7 +2,7 @@
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
-	console.log(user.photo);
+	console.log(user);
 
 	var fppPhotoURL = user.photo.replace(/&/g, "%26");
 
@@ -116,19 +116,21 @@ $(document).ready(function() {
 				};
 				$.ajax({
 					method: 'POST',
-					url: '/update',
-					data: {user: userName, userProfile: userProfile}
+					url: '/updatePowers',
+					data: {userProfile: userProfile}
 				})
 				.done(function(updateData) {
 					if (updateData.error) {
 				  		alert(updateData.error);
 				  	};
+				  	 sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, powers: userProfile.powers, scores: userProfile.scores}));
 				  	alert(updateData.msg);
 				  	window.location = updateData.url;
 				});
 			});
 		});
 		var userProfile = {
+			'user': user.user,
 			'scores': [$('#q1').val(),$('#q2').val(),$('#q3').val(),$('#q4').val(),$('#q5').val(),$('#q6').val(),$('#q7').val()],
 			'profile_pic': ''+fppPhotoURL+'',
 			'powers': []

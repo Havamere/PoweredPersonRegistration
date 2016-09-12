@@ -110,18 +110,20 @@ app.post('/signIn', function(req, res) {
 	});
 });
 
-app.post('/update', function(req, res) {
-	var updateUser = req.body;
+app.post('/updatePowers', function(req, res) {
+	var updateUser = req.body.userProfile;
 	console.log(updateUser);
 
-	db.poweredIndex.findOne({"user": updateUser.user}, function(err, data) {
+	db.poweredIndex.findOne({"user": updateUser.user},
+			{$push: {'powers': updateUser.powers,
+					 'scores': updateUser.scores,
+					 'completed': true}},
+					function(err, data) {
 		//shows errors
 		if (err) console.log(err);
 		//confirms data
 		console.log(data);
-
-		//db.poweredIndex.update({"user": updateUser.user}, {$push:  })
-
+		res.json({msg: "Excellent.  Building your profile now!", url: '/profile.html'});
 	});
 })
 
