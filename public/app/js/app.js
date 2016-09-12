@@ -42,7 +42,7 @@ provider.addScope('user_photos');
 provider.addScope('user_location');
 
 
-$('#signUp').click(function(){
+$('#Log-in').click(function(){
 	console.log("button clicked");
 
 	firebase.auth().signInWithPopup(provider).then(function(result) {
@@ -224,6 +224,7 @@ $('#signIn').click(function(){
   function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
+      console.log(response);
       console.log('Successful login for: ' + response.name);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
