@@ -86,8 +86,8 @@ $('#Log-in').click(function(){
 
     console.log("Attempting to access profile picture.");
   	FB.api('/me/picture', function(response) {
-  		console.log(response.url);
-
+  		console.log(response);
+  		console.log(response.data.url);
   		sessionStorage.setItem('user', JSON.stringify({photo: response.url}));
   	});
 
