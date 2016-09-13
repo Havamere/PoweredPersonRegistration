@@ -20,12 +20,9 @@ app.use(express.static('./public'));
 
 // -------------------------------------------------
 
-// MongoDB Configuration configuration (Change this URL to your own DB)
-// var databaseUrl = 'PoweredPeople';
-// var collections = ["poweredIndex"];
+// MongoDB Configuration configuration
 
 // use mongojs to hook the database to the db variable 
-//var db = mongojs(databaseUrl, collections);
 
 var config = require('./config.js');
 var db = mongojs(config.dbURI, [config.collections])
