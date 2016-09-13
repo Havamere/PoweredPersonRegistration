@@ -7,8 +7,8 @@ $('#Log-in').click(function(){
 	if (user !== null && user !== undefined) {
 		$.ajax({
 		  method: "POST",
-		  url: "/signUp",
-		  data: {user: userName, email: userEmail, profilePic: userPhoto}
+		  url: "/logIn",
+		  data: {user: userName, profilePic: userPhoto}
 		})
 		  .done(function( data ) {
 		  	if (data.error) {

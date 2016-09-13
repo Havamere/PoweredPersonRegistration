@@ -45,25 +45,27 @@ app.get('/', function (req, res) {
 	res.sendFile('./public/app/index.html');
 });
 
-app.post('/signUp', function(req, res) {
-	//sets req.body to user for easier typing
-	var user = req.body;
+app.post('/logIn', function(req, res) {
+	//sets req.body to more coherent term
+	var registrant = req.body;
 	//tests data collection from page
-	console.log(user);
+	console.log(registrant);
 
-	db.poweredIndex.findOne({"user": user.user}, function(err, data) {
+	db.poweredIndex.findOne({"user": registrant.user}, function(err, data) {
 		//shows errors
 		if (err) console.log(err);
 		//confirms data
 		console.log(data);
-		//sets data to empty object if data doesn't exist
-		data = data || {};
-		//confirms user name from db and user name from sign-up
-		console.log(data.user, user.user);
-		//tests if user already exists
-		if (data.user == user.user) {
-			//tells user that user name already exists and redirects to sign-in path
-			res.json({error: "User already exists!", url: '/index.html'})
+		
+		if (data.user == registrant.user) {
+			//checks if data attribute for for scan page completed is true
+			if (data.completed === true) {
+				//informs user of welcom back, and re-directs user to profile page
+				res.json({msg: "Welcome back!", url: '/profile.html'})	
+			} else {
+				//informs user that scan page was not completed, and redirects to scan page
+				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
+			}
 		} else {
 			//inserts new user if one was not found
 			db.poweredIndex.insert(user, function(err, saved) {
@@ -77,35 +79,6 @@ app.post('/signUp', function(req, res) {
 			      res.json({user: saved.user, url: '/scan.html'});
 			    };
 			});
-		}
-	});	
-});
-
-app.post('/signIn', function(req, res) {
-	//sets req.body to more coherent term
-	var returnUser = req.body;
-	//tests data collection from page
-	console.log(returnUser);
-
-	db.poweredIndex.findOne({"user": returnUser.user}, function(err, data) {
-		//shows errors
-		if (err) console.log(err);
-		//confirms data
-		console.log(data);
-		//sets data to empty object if data doesn't exist
-		data = data || {};
-		if (data.user == returnUser.user) {
-			//checks if data attribute for for scan page completed is true
-			if (data.completed === true) {
-				//informs user of welcom back, and re-directs user to profile page
-				res.json({msg: "Welcome back!", url: '/profile.html'})	
-			} else {
-				//informs user that scan page was not completed, and redirects to scan page
-				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
-			}
-		} else {
-			//jupon no match found in DB, runs user through sign-up path
-			res.json({error: "User doesn't exist, please sign up!", url: '/index.html'})
 		}
 	});
 });
@@ -131,3 +104,69 @@ app.post('/updatePowers', function(req, res) {
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });
+
+
+// app.post('/signUp', function(req, res) {
+// 	//sets req.body to user for easier typing
+// 	var user = req.body;
+// 	//tests data collection from page
+// 	console.log(user);
+
+// 	db.poweredIndex.findOne({"user": user.user}, function(err, data) {
+// 		//shows errors
+// 		if (err) console.log(err);
+// 		//confirms data
+// 		console.log(data);
+// 		//sets data to empty object if data doesn't exist
+// 		data = data || {};
+// 		//confirms user name from db and user name from sign-up
+// 		console.log(data.user, user.user);
+// 		//tests if user already exists
+// 		if (data.user == user.user) {
+// 			//tells user that user name already exists and redirects to sign-in path
+// 			res.json({error: "User already exists!", url: '/index.html'})
+// 		} else {
+// 			//inserts new user if one was not found
+// 			db.poweredIndex.insert(user, function(err, saved) {
+// 				// show any errors
+// 			    if (err) {
+// 			      console.log(err);
+// 			    } 
+// 			    // otherwise, send the response to the client (for AJAX success function)
+// 			    else {
+// 			    	//sends user to scan page
+// 			      res.json({user: saved.user, url: '/scan.html'});
+// 			    };
+// 			});
+// 		}
+// 	});	
+// });
+
+// app.post('/signIn', function(req, res) {
+// 	//sets req.body to more coherent term
+// 	var returnUser = req.body;
+// 	//tests data collection from page
+// 	console.log(returnUser);
+
+// 	db.poweredIndex.findOne({"user": returnUser.user}, function(err, data) {
+// 		//shows errors
+// 		if (err) console.log(err);
+// 		//confirms data
+// 		console.log(data);
+// 		//sets data to empty object if data doesn't exist
+// 		data = data || {};
+// 		if (data.user == returnUser.user) {
+// 			//checks if data attribute for for scan page completed is true
+// 			if (data.completed === true) {
+// 				//informs user of welcom back, and re-directs user to profile page
+// 				res.json({msg: "Welcome back!", url: '/profile.html'})	
+// 			} else {
+// 				//informs user that scan page was not completed, and redirects to scan page
+// 				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
+// 			}
+// 		} else {
+// 			//jupon no match found in DB, runs user through sign-up path
+// 			res.json({error: "User doesn't exist, please sign up!", url: '/index.html'})
+// 		}
+// 	});
+// });

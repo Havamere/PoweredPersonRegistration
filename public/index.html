@@ -13,6 +13,7 @@
 		<div class="col-sm-10 col-sm-offset-1">
 			<div class="panel welcome no-margin no-padding">
 				<h1><strong>Please sign up to create an account or sign in to your current account.</strong></h1>
+				<div id="status"></div>
 			</div>
 			<div class="row">
 				<div class="col-sm-3 col-sm-offset-3">
@@ -22,8 +23,7 @@
 				</div>
 				<div class="col-sm-3">
 					<div class="panel no-margin no-padding border" id="signIn">
-						<div class="fb-login-button fb_iframe_widget" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" scope="public_profile" onlogin="checkLoginState();"></div>
-						<h2><strong>Facebook</strong></h2>
+						<div class="fb-login-button fb_iframe_widget" data-max-rows="1" data-size="xlarge" data-show-faces="false" data-auto-logout-link="true" scope="public_profile" onlogin="checkLoginState();" id="FBbutton"></div>
 					</div>
 				</div>
 			</div>
@@ -42,17 +42,6 @@
 					<img src="app/images/Face++.png" class="center-block" id="faceplusplus">
 				</div>
 			</div>
-		</div>
-		<div
-		  class="fb-like"
-		  data-share="true"
-		  data-width="450"
-		  data-show-faces="true">
-		</div>
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-		</fb:login-button>
-
-		<div id="status">
 		</div>
 	</div>
 </div>
