@@ -24,26 +24,33 @@ var matches = [
 //||General functions for index/sign-in page||\\
 
 //creates firebase configuration for data management
-var config = {
-	apiKey: "AIzaSyB76GN2pXdeqIyw_y61bvdS5NuR8qR2wXw",
-    authDomain: "powered-persons-registration.firebaseapp.com",
-    databaseURL: "https://powered-persons-registration.firebaseio.com",
-    storageBucket: "powered-persons-registration.appspot.com",
-};
+// var config = {
+// 	apiKey: "AIzaSyB76GN2pXdeqIyw_y61bvdS5NuR8qR2wXw",
+//     authDomain: "powered-persons-registration.firebaseapp.com",
+//     databaseURL: "https://powered-persons-registration.firebaseio.com",
+//     storageBucket: "powered-persons-registration.appspot.com",
+// };
 
 //Initiallizes firebase on the page
-firebase.initializeApp(config);
+//firebase.initializeApp(config);
 
 //Create the provider object *look at at window*
-var provider = new firebase.auth.FacebookAuthProvider();
+//var provider = new firebase.auth.FacebookAuthProvider();
 
 //Adds profile photo album as additional scope.  We will need these for the user to pick from for the scan
-provider.addScope('user_photos');
-provider.addScope('user_location');
+//provider.addScope('user_photos');
+//provider.addScope('user_location');
 
+// Only works after `FB.init` is called
+function myFacebookPicture() {
+  FB.login(function(){}, {scope: 'public_profile'});
+}
 
 $('#Log-in').click(function(){
 	console.log("button clicked");
+
+	checkLoginState();
+
 	window.fbAsyncInit = function() {
     FB.init({
       appId      : '638211789673829',
@@ -75,7 +82,15 @@ $('#Log-in').click(function(){
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
     });
-  }
+
+  function getPicture() {
+  	console.log("Attempting to access profile picture.");
+  	FB.api('/me/picture', function(response) {
+  		console.log(response);
+  	})
+   }
+
+   }
 
 	// firebase.auth().signInWithPopup(provider).then(function(result) {
 	//   // This gives you a Facebook Access Token. You can use it to access the Facebook API.
@@ -184,7 +199,7 @@ $('#Log-in').click(function(){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}
      js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
+     js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=638211789673829";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 
@@ -199,4 +214,11 @@ $('#Log-in').click(function(){
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
     });
+
   }
+  function getPicture() {
+  	console.log("Attempting to access profile picture.");
+  	FB.api('/me/picture', function(response) {
+  		console.log(response);
+  	})
+   }
