@@ -25,7 +25,7 @@ app.use(express.static('./public'));
 // var collections = ["poweredIndex"];
 
 // use mongojs to hook the database to the db variable 
-var db = mongojs(databaseUrl, collections);
+//var db = mongojs(databaseUrl, collections);
 
 var config = require('./config.js');
 var db = mongojs(config.dbURI, [config.collections])
