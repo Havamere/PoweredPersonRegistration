@@ -215,6 +215,11 @@ $('#Log-in').click(function(){
         'Thanks for logging in, ' + response.name + '!';
     });
 
+    console.log("Attempting to access profile picture.");
+  	FB.api('/me/picture', function(response) {
+  		console.log(response);
+  	});
+
   }
   function getPicture() {
   	console.log("Attempting to access profile picture.");
