@@ -88,7 +88,7 @@ $('#Log-in').click(function(){
   	FB.api('/me/picture', function(response) {
   		console.log(response);
   		console.log(response.data.url);
-  		sessionStorage.setItem('user', JSON.stringify({photo: response.url}));
+  		sessionStorage.setItem('picture', JSON.stringify({photo: response.data.url}));
   	});
 
   }
