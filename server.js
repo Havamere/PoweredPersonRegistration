@@ -30,7 +30,7 @@ db.on('error', function (err) {
 	//logs error if occurs while signing in
   console.log('MongoDB Error: ', err);
 });
-var poweredIndex = db.collection('poweredIndex');
+var poweredIndex = db.collection('PowersIndex');
 // -------------------------------------------------
 		//Routes//
 // -------------------------------------------------
