@@ -17,6 +17,11 @@ $('#Log-in').click(function(){
 		  		alert(data.error);
 		  	}
 		  	alert(data.msg);
+
+		  	console.log(data);
+
+		  	sessionStorage.setItem('user', JSON.stringify({user: data.user}));
+
 		  	window.location = data.url;
 		  });
 	} else {
