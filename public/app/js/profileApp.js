@@ -26,5 +26,5 @@ $(document).ready(function() {
 
 	console.log(user);
 
-		$('.profilePic').append("<img class='pull-right' src="+user.photo+" width='100px' height='100px'>");
+		$('.profilePic').append("<img class='pull-right' src='"+user.photo+"' width='100px' height='100px'>");
 });
