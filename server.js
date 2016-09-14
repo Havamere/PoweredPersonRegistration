@@ -21,11 +21,9 @@ app.use(express.static('./public'));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration
-
 // use mongojs to hook the database to the db variable 
-
 var config = require('./config.js');
-var db = mongojs(config.dbURI, [config.collections])
+var db = mongojs(config.dbURI, [config.collections]);
 
 
 db.on('error', function (err) {
@@ -48,7 +46,7 @@ app.post('/logIn', function(req, res) {
 	//tests data collection from page
 	console.log(registrant);
 
-	db.poweredIndex.findOne({"user": registrant.user}, function(err, data) {
+	db.poweredIndex.find({"user": registrant.user}, function(err, data) {
 		//shows errors
 		if (err) console.log(err);
 		//confirms data
