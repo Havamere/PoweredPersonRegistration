@@ -25,12 +25,14 @@ app.use(express.static('./public'));
 var config = require('./config.js');
 var db = mongojs(config.dbURI, [config.collections]);
 
+//var db = mongojs('PoweredPeople', ['poweredIndex']);
+
 
 db.on('error', function (err) {
 	//logs error if occurs while signing in
   console.log('MongoDB Error: ', err);
 });
-var poweredIndex = db.collection('PowersIndex');
+//var poweredIndex = db.collection('PowersIndex');
 // -------------------------------------------------
 		//Routes//
 // -------------------------------------------------
@@ -46,24 +48,26 @@ app.post('/logIn', function(req, res) {
 	//tests data collection from page
 	console.log(registrant);
 
-	db.poweredIndex.find({"user": registrant.user}, function(err, data) {
+	db.poweredIndex.findOne({"user": registrant.user}, function(err, data) {
 		//shows errors
 		if (err) console.log(err);
 		//confirms data
-		console.log(data);
+		console.log("data: " + data);
 		
+		data = data || {};
+
 		if (data.user == registrant.user) {
 			//checks if data attribute for for scan page completed is true
 			if (data.completed === true) {
 				//informs user of welcom back, and re-directs user to profile page
-				res.json({msg: "Welcome back!", url: '/profile.html'})	
+				res.json({user: data, msg: "Welcome back!", url: '/profile.html'})	
 			} else {
 				//informs user that scan page was not completed, and redirects to scan page
-				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
+				res.json({user: data, msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
 			}
 		} else {
 			//inserts new user if one was not found
-			db.poweredIndex.insert(user, function(err, saved) {
+			db.poweredIndex.insert(registrant, function(err, saved) {
 				// show any errors
 			    if (err) {
 			      console.log(err);
@@ -71,7 +75,7 @@ app.post('/logIn', function(req, res) {
 			    // otherwise, send the response to the client (for AJAX success function)
 			    else {
 			    	//sends user to scan page
-			      res.json({user: saved.user, url: '/scan.html'});
+			      res.json({user: saved.user, msg: "Please complete your scan and questionnaire.", url: '/scan.html'});
 			    };
 			});
 		}
@@ -82,18 +86,15 @@ app.post('/updatePowers', function(req, res) {
 	var updateUser = req.body.userProfile;
 	console.log(updateUser);
 
-	db.poweredIndex.find({"user": updateUser.user},
-			{$push: {'powers': updateUser.powers,
-					 'scores': updateUser.scores,
-					 'completed': true}},
-					function(err, data) {
-		//shows errors
-		if (err) console.log(err);
+	db.poweredIndex.update({'user': updateUser.user}, { $set : {'completed': true, 'powers': updateUser.powers, 'scores': updateUser.scores}}, function(err, data) {
+		if (err) {
+			console.log(err);
+		}
 		//confirms data
 		console.log(data);
 		res.json({msg: "Excellent.  Building your profile now!", url: '/profile.html'});
 	});
-})
+});
 
 // Listener
 app.listen(PORT, function() {
@@ -160,7 +161,7 @@ app.listen(PORT, function() {
 // 				res.json({msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
 // 			}
 // 		} else {
-// 			//jupon no match found in DB, runs user through sign-up path
+// 			//upon no match found in DB, runs user through sign-up path
 // 			res.json({error: "User doesn't exist, please sign up!", url: '/index.html'})
 // 		}
 // 	});

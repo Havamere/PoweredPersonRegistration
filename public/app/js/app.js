@@ -5,11 +5,12 @@ $('#Log-in').click(function(){
 	//console.log("button clicked");
 	var user = JSON.parse(sessionStorage.getItem('user'));
 	var picture = JSON.parse(sessionStorage.getItem('picture'));
+
 	if (user !== null && user !== undefined) {
 		$.ajax({
 		  method: "POST",
 		  url: "/logIn",
-		  data: {user: user.user, profilePic: picture.photo}
+		  data: {user: user.user, profilePic: picture.photo, completed: false}
 		})
 		  .done(function( data ) {
 		  	if (data.error) {

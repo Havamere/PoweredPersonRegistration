@@ -22,6 +22,9 @@ var matches = [
 ];
 
 $(document).ready(function() {
-	if (sessionStorage.getItem('user')) {}
+	var user = JSON.parse(sessionStorage.getItem('user'));
 
+	console.log(user);
+
+		$('.profilePic').append("<img class='pull-right' src="+user.photo+" width='100px' height='100px'>");
 });

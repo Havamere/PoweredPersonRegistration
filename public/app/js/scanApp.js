@@ -1,13 +1,14 @@
 //||JavaScript for Scan page||\\
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
+	var picture = JSON.parse(sessionStorage.getItem('picture'));
 
-	console.log(user);
+	console.log(user, picture);
 
-	var fppPhotoURL = user.photo.replace(/&/g, "%26");
+	var fppPhotoURL = picture.photo.replace(/&/g, "%26");
 
 	//for (var i = 0; i < array.length; i++) {}
-	$('.profilePics').append("<img id='picture' src="+user.photo+" draggable='true' ondragstart='drag(event)'' width='200px' height='200px'>");
+	$('.profilePics').append("<img id='picture' src="+picture.photo+" draggable='true' ondragstart='drag(event)'' width='200px' height='200px'>");
 
 	var key = '18465a9186327cab7d69e7d4e8daf163';
 	var secret = 'XJHHBsWyjDxwT-lhvauBkg4GlA7UNCvi';
@@ -123,7 +124,7 @@ $(document).ready(function() {
 					if (updateData.error) {
 				  		alert(updateData.error);
 				  	};
-				  	 sessionStorage.setItem('user', JSON.stringify({user: userName, photo: userPhoto, powers: userProfile.powers, scores: userProfile.scores}));
+				  	sessionStorage.setItem('user', JSON.stringify({user: user.user, photo: picture.photo, powers: userProfile.powers, scores: userProfile.scores}));
 				  	alert(updateData.msg);
 				  	window.location = updateData.url;
 				});
