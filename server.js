@@ -82,7 +82,7 @@ app.post('/updatePowers', function(req, res) {
 	var updateUser = req.body.userProfile;
 	console.log(updateUser);
 
-	db.poweredIndex.findOne({"user": updateUser.user},
+	db.poweredIndex.find({"user": updateUser.user},
 			{$push: {'powers': updateUser.powers,
 					 'scores': updateUser.scores,
 					 'completed': true}},
