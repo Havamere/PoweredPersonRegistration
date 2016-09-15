@@ -21,6 +21,65 @@ var matches = [
 	{name: 'Wolverine', url: './images/Wolverine.png', powers: ['Enhanced Senses', 'Martial Arts', 'Regeneration']}
 ];
 
+	var map;
+
+	function initMap() {
+    	map = new google.maps.Map(document.getElementById('map'), {
+	    	center: {lat: -34.397, lng: 150.644},
+	    	zoom: 8,
+	    	mapTypeId: google.maps.MapTypeId.TERRAIN
+
+    	});
+	}
+
+	function initAutocomplete() {
+	    // Create the autocomplete object, restricting the search to geographical
+	    // location types.
+	    autocomplete = new google.maps.places.Autocomplete(
+	        /** @type {!HTMLInputElement} */
+	        (document.getElementById('autocomplete')), { types: ['geocode'] });
+
+	    // When the user selects an address from the dropdown, populate the address
+	    // fields in the form.
+	    autocomplete.addListener('place_changed', fillInAddress);
+	}	
+	
+	// Bias the autocomplete object to the user's geographical location,
+	// as supplied by the browser's 'navigator.geolocation' object.
+	function geolocate() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function(position) {
+	            var geolocation = {
+	                lat: position.coords.latitude,
+	                lng: position.coords.longitude
+	            };
+	            var circle = new google.maps.Circle({
+	                center: geolocation,
+	                radius: position.coords.accuracy
+	            });
+	            autocomplete.setBounds(circle.getBounds());
+	        });
+	    }
+	}
+
+	// Bias the autocomplete object to the user's geographical location,
+	// as supplied by the browser's 'navigator.geolocation' object.
+	function geolocate() {
+	    if (navigator.geolocation) {
+	        navigator.geolocation.getCurrentPosition(function(position) {
+	            var geolocation = {
+	                lat: position.coords.latitude,
+	                lng: position.coords.longitude
+	            };
+	            var circle = new google.maps.Circle({
+	                center: geolocation,
+	                radius: position.coords.accuracy
+	            });
+	            autocomplete.setBounds(circle.getBounds());
+	        });
+	    }
+	}
+
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
@@ -95,60 +154,5 @@ $(document).ready(function() {
 		$('#powers').append("<button class='btn btn-danger' value="+places[i]+">"+powers[i]+"</button>");
 	};
 
-	var map;
 
-	function initMap() {
-    	map = new google.maps.Map(document.getElementById('map'), {
-	    	center: {lat: -34.397, lng: 150.644},
-	    	zoom: 8
-    	});
-	}
-
-	function initAutocomplete() {
-	    // Create the autocomplete object, restricting the search to geographical
-	    // location types.
-	    autocomplete = new google.maps.places.Autocomplete(
-	        /** @type {!HTMLInputElement} */
-	        (document.getElementById('autocomplete')), { types: ['geocode'] });
-
-	    // When the user selects an address from the dropdown, populate the address
-	    // fields in the form.
-	    autocomplete.addListener('place_changed', fillInAddress);
-	}	
-	
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function(position) {
-	            var geolocation = {
-	                lat: position.coords.latitude,
-	                lng: position.coords.longitude
-	            };
-	            var circle = new google.maps.Circle({
-	                center: geolocation,
-	                radius: position.coords.accuracy
-	            });
-	            autocomplete.setBounds(circle.getBounds());
-	        });
-	    }
-	}
-
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function(position) {
-	            var geolocation = {
-	                lat: position.coords.latitude,
-	                lng: position.coords.longitude
-	            };
-	            var circle = new google.maps.Circle({
-	                center: geolocation,
-	                radius: position.coords.accuracy
-	            });
-	            autocomplete.setBounds(circle.getBounds());
-	        });
-	    }
-	}
 });
