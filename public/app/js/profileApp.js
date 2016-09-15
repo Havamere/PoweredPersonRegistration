@@ -96,5 +96,13 @@ $(document).ready(function() {
 	for (var i = 0; i < powers.length; i++) {
 		$('#powers').append("<button class='btn btn-danger' value="+places[i]+">"+powers[i]+"</button>");
 	};
+
+	var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 8
+        });
+      }
 		
 });
