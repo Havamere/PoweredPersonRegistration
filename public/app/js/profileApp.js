@@ -28,7 +28,9 @@ $(document).ready(function() {
 
 		$('#profilePic').append("<img class='pull-right' src="+user.photo+" width='100px' height='100px'>");
 		$('#userName').html(user.user.user);
-		for (var i = 0; i < user.user.powers.length; i++) {
-			$('#powers').html(user.user.powers[i]);
-		}
+		$('#powers').html(function() {
+			for (var i = 0; i < user.user.powers.length; i++) {
+				document.write(user.user.powers[i]);
+			}
+		});
 });
