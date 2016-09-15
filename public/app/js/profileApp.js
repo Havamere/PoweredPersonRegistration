@@ -21,8 +21,6 @@ var matches = [
 	{name: 'Wolverine', url: './images/Wolverine.png', powers: ['Enhanced Senses', 'Martial Arts', 'Regeneration']}
 ];
 
-var mapKey = "AIzaSyB76GN2pXdeqIyw_y61bvdS5NuR8qR2wXw"
-
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
