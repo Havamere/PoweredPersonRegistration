@@ -75,7 +75,7 @@ app.post('/logIn', function(req, res) {
 			    // otherwise, send the response to the client (for AJAX success function)
 			    else {
 			    	//sends user to scan page
-			      res.json({user: saved.user, msg: "Please complete your scan and questionnaire.", url: '/scan.html'});
+			      res.json({user: saved, msg: "Please complete your scan and questionnaire.", url: '/scan.html'});
 			    };
 			});
 		}
