@@ -21,63 +21,89 @@ var matches = [
 	{name: 'Wolverine', url: './images/Wolverine.png', powers: ['Enhanced Senses', 'Martial Arts', 'Regeneration']}
 ];
 
-	var map;
+var map;
 
-	function initMap() {
-    	map = new google.maps.Map(document.getElementById('map'), {
-	    	center: {lat: -34.397, lng: 150.644},
-	    	zoom: 8,
-	    	mapTypeId: google.maps.MapTypeId.TERRAIN
-    	});
-	}
+function initMap() {
+	var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -34.397, lng: 150.644},
+      zoom: 6
+    });
+    var infoWindow = new google.maps.InfoWindow({map: map});
 
-	function initAutocomplete() {
-	    // Create the autocomplete object, restricting the search to geographical
-	    // location types.
-	    autocomplete = new google.maps.places.Autocomplete(
-	        /** @type {!HTMLInputElement} */
-	        (document.getElementById('autocomplete')), { types: ['geocode'] });
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
 
-	    // When the user selects an address from the dropdown, populate the address
-	    // fields in the form.
-	    autocomplete.addListener('place_changed', fillInAddress);
-	}	
-	
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function(position) {
-	            var geolocation = {
-	                lat: position.coords.latitude,
-	                lng: position.coords.longitude
-	            };
-	            var circle = new google.maps.Circle({
-	                center: geolocation,
-	                radius: position.coords.accuracy
-	            });
-	            autocomplete.setBounds(circle.getBounds());
-	        });
-	    }
-	}
+        infoWindow.setPosition(pos);
+        infoWindow.setContent('Location found.');
+        map.setCenter(pos);
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
 
-	// Bias the autocomplete object to the user's geographical location,
-	// as supplied by the browser's 'navigator.geolocation' object.
-	function geolocate() {
-	    if (navigator.geolocation) {
-	        navigator.geolocation.getCurrentPosition(function(position) {
-	            var geolocation = {
-	                lat: position.coords.latitude,
-	                lng: position.coords.longitude
-	            };
-	            var circle = new google.maps.Circle({
-	                center: geolocation,
-	                radius: position.coords.accuracy
-	            });
-	            autocomplete.setBounds(circle.getBounds());
-	        });
-	    }
-	}
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+}
+
+function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */
+        (document.getElementById('autocomplete')), { types: ['geocode'] });
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', fillInAddress);
+}	
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
+
+// Bias the autocomplete object to the user's geographical location,
+// as supplied by the browser's 'navigator.geolocation' object.
+function geolocate() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var geolocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            var circle = new google.maps.Circle({
+                center: geolocation,
+                radius: position.coords.accuracy
+            });
+            autocomplete.setBounds(circle.getBounds());
+        });
+    }
+}
 
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
