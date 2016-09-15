@@ -28,7 +28,6 @@ var matches = [
 	    	center: {lat: -34.397, lng: 150.644},
 	    	zoom: 8,
 	    	mapTypeId: google.maps.MapTypeId.TERRAIN
-
     	});
 	}
 
@@ -154,5 +153,5 @@ $(document).ready(function() {
 		$('#powers').append("<button class='btn btn-danger' value="+places[i]+">"+powers[i]+"</button>");
 	};
 
-
+	initMap();
 });
