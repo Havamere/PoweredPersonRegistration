@@ -29,7 +29,7 @@ $(document).ready(function() {
 		$('#profilePic').append("<img class='pull-right' src="+user.photo+" width='100px' height='100px'>");
 		$('#userName').html(user.user.user);
 		for (var i = 0; i < user.user.powers.length; i++) {
-			$('#powers').append(user.user.powers[i]);
+			$('#powers').append("<button class='btn btn-danger' value="+user.user.powers[i]+">"+user.user.powers[i]+"</button>");
 		};
 		
 });
