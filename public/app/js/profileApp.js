@@ -65,34 +65,70 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function initAutocomplete() {
-    // Create the autocomplete object, restricting the search to geographical
-    // location types.
-    autocomplete = new google.maps.places.Autocomplete(
-        /** @type {!HTMLInputElement} */
-        (document.getElementById('autocomplete')), { types: ['geocode'] });
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -33.8688, lng: 151.2195},
+      zoom: 13,
+      mapTypeId: 'roadmap'
+    });
 
-    // When the user selects an address from the dropdown, populate the address
-    // fields in the form.
-    autocomplete.addListener('place_changed', fillInAddress);
-}	
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-// Create the search box and link it to the UI element.
-var input = document.getElementById('pac-input');
-var searchBox = new google.maps.places.SearchBox(input);
-map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
 
-// Bias the SearchBox results towards current map's viewport.
-map.addListener('bounds_changed', function() {
-  searchBox.setBounds(map.getBounds());
-});
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
 
- // Listen for the event fired when the user selects a prediction and retrieve
-// more details for that place.
-searchBox.addListener('places_changed', function() {
-  var places = searchBox.getPlaces();
+      if (places.length === 0) {
+        return;
+      }
 
-  if (places.length == 0) {
-    return;
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        }
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
+    });
   }
 
 // Bias the autocomplete object to the user's geographical location,
@@ -134,6 +170,7 @@ function setMapOnAll(map) {
 function clearMarkers() {
     setMapOnAll(null);
 }
+
 // Deletes all markers in the array by removing references to them.
 function deleteMarkers() {
     clearMarkers();
@@ -144,7 +181,6 @@ function deleteMarkers() {
 function showMarkers() {
     setMapOnAll(map);
 }
-
 
 function newResults() {
     console.log(typeof(markerArr));
@@ -161,39 +197,33 @@ function newResults() {
     infoWindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
 
-
     var type = $(this).text();
     var request = {
-        //bounds: map.getBounds(),
+        bounds: map.getBounds(),
         map: map,
         location: haightAshbury,
         keyword: type,
         rankBy: google.maps.places.RankBy.PROMINENCE,
         radius: 5000,
         zoom: 13,
-       // limit: 5,
-
+        limit: 5,
     };
 
     service.radarSearch(request, callback);
 
-
-
     function callback(results, status) {
         // console.log(results)//Array of results with place information
-            markerArr = [];
-            for (var i = 0; i < results.length; i++) {
+        markerArr = [];
+        for (var i = 0; i < results.length; i++) {
             service.getDetails(results[i], function(result, status) {
-                    // console.log(result);
-
-                    if (result.rating > 4) {
-                    console.log("Only the best of the best, Ratings are greater than 4")
-                    addMarker(result);
-                    addResults(result);
-                }
-                   
-            })
-            }//End for loop
+                // console.log(result);
+                if (result.rating > 4) {
+	                console.log("Only the best of the best, Ratings are greater than 4");
+	                addMarker(result);
+	                addResults(result);
+                }                  
+            });
+        }//End for loop
     }
 
     function addResults(place) {
@@ -227,14 +257,10 @@ function newResults() {
                     return;
                 }
                 infoWindow.setContent("<p><b>Name:</b>" + result.name + "<p><b>address:  </b>" + result.formatted_address + "<p><b>phone number:  </b>" + result.formatted_phone_number + "<p><b>rating: </b>" + result.rating);
-
                 infoWindow.open(map, marker);
             });
-
         });
-
     }
-
 }
 
 $(document).ready(function() {
