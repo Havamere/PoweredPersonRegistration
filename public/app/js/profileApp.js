@@ -25,13 +25,13 @@ var map;
 
 function initMap() {
 	var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 28.538, lng: 81.379},
+      center: {lat: 28.538, lng: -81.379},
       zoom: 6
     });
     var infoWindow = new google.maps.InfoWindow({map: map});
 
     // Try HTML5 geolocation.
-    if (navigator.geolocation) {
+    //if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
           lat: position.coords.latitude,
@@ -44,10 +44,10 @@ function initMap() {
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
-    } else {
+    //} else {
       // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
+     // handleLocationError(false, infoWindow, map.getCenter());
+    //}
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
