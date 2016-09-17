@@ -208,7 +208,6 @@ $(document).ready(function() {
 		input.val(input.val() + place);
 		var e = $.Event('keydown');
 		e.which = 13;
-		input.trigger(e);
-		//input.val('');
+		$(body).trigger(e, '#pac-input');
 	});
 });
