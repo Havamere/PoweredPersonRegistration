@@ -39,14 +39,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function initAutocomplete() {
+    var haightAshbury = {lat: -33.8688, lng: 151.2195};
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -33.8688, lng: 151.2195},
+      center: haightAshbury,
       zoom: 7,
       mapTypeId: 'roadmap'
     });
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
+    console.log(input);
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
