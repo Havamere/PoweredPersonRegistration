@@ -102,6 +102,10 @@ body {
     padding: 0 11px 0 13px;
     text-overflow: ellipsis;
     width: 300px;
+    z-index: 4;
+    position: absolute;
+    left: 114px;
+    top: 1px;
 }
 
 #pac-input:focus {
