@@ -68,11 +68,12 @@ app.post('/logIn', function(req, res) {
 		} else {
 			//inserts new user if one was not found
 			db.poweredIndex.insert(registrant, function(err, saved) {
+				//test data
+				console.log(saved);
 				// show any errors
 			    if (err) {
 			      console.log(err);
 			    } 
-			    console.log(saved);
 			    // otherwise, send the response to the client (for AJAX success function)
 			    else {
 			    	//sends user to scan page
