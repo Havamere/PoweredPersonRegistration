@@ -39,9 +39,9 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function initAutocomplete() {
-    var haightAshbury = {lat: -33.8688, lng: 151.2195};
+    var center = {lat: -33.8688, lng: 151.2195};
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: haightAshbury,
+      center: center,
       zoom: 7,
       mapTypeId: 'roadmap'
     });
@@ -49,7 +49,6 @@ function initAutocomplete() {
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
-    console.log(searchBox);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
@@ -337,6 +336,6 @@ $(document).ready(function() {
 	$('.btn').on('click', function(){
 		var place = $(this).attr("value");
 		console.log(place);
-  		processButtonSearch(place);
+  		newResults(place);
 	});
 });
