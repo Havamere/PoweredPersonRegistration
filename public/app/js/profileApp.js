@@ -198,7 +198,7 @@ $(document).ready(function() {
 		var place = $(this).attr("value");
 		console.log(place);
 		var input = $('#pac-input');
-		input.val().empty();
+		input.val('');
 		input.val(input.val() + place);
 		$('input').trigger({
 		    type: 'keypress',
