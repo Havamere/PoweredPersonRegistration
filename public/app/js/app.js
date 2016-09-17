@@ -10,7 +10,7 @@ $('#Log-in').click(function(){
 		$.ajax({
 		  method: "POST",
 		  url: "/logIn",
-		  data: {user: user.user, profilePic: picture.photo, completed: false}
+		  data: {user: user.user, photo: picture.photo, completed: false}
 		})
 		  .done(function( data ) {
 		  	if (data.error) {
@@ -20,7 +20,7 @@ $('#Log-in').click(function(){
 
 		  	console.log(data);
 
-		  	sessionStorage.setItem('user', JSON.stringify({user: data.user}));
+		  	sessionStorage.setItem('user', JSON.stringify(data.user);
 
 		  	window.location = data.url;
 		  });
