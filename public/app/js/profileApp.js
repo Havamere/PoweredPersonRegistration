@@ -199,10 +199,7 @@ $(document).ready(function() {
 		console.log(place);
 		var input = $('#pac-input');
 		input.val('');
-		input.val(input.val() + place);
-		$('input').trigger({
-		    type: 'keypress',
-		    which: 13
-		});
+		input.val(input.val() + place).trigger({type: 'keydown', which: 13});
+		input.val('');
 	});
 });
