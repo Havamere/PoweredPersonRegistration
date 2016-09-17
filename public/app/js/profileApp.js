@@ -106,12 +106,12 @@ function initAutocomplete() {
       });
       map.fitBounds(bounds);
     });
-    var button = $('.btn'); 
-	  button.onclick = function() {
-	  	var place = $(this).attr("value");
-	    input.value = place;
-	    input.focus(); 
-	  }
+   //  var button = $('.btn'); 
+	  // button.onclick = function() {
+	  // 	var place = $(this).attr("value");
+	  //   input.value = place;
+	  //   input.focus(); 
+	  // }
 }
 
 
@@ -200,12 +200,13 @@ $(document).ready(function() {
 		$('#powers').append("<button class='btn btn-danger' value=\""+places[i]+"\">"+powers[i]+"</button>");
 	}
 
-	// $('.btn').on('click', function(){
-	// 	var place = $(this).attr("value");
-	// 	console.log(place);
-	// 	var input = $('#pac-input');
-	// 	input.val('');
-	// 	input.val(input.val() + place).trigger({type: 'keydown', which: 13});
-	// 	//input.val('');
-	// });
+	$('.btn').on('click', function(){
+		var place = $(this).attr("value");
+		console.log(place);
+		var input = $('#pac-input');
+		input.val('');
+		input.val(input.val() + place);
+		$('input').trigger({type: 'keydown', which: 13});
+		//input.val('');
+	});
 });
