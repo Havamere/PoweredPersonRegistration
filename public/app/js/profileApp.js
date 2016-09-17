@@ -30,7 +30,6 @@ var haightAshbury = {};
 var autocomplete;
 var markerArr = [];
 
-$(document).ready(function() {
 
 	function initMap() {
 		var map = new google.maps.Map(document.getElementById('map'), {
@@ -265,6 +264,7 @@ $(document).ready(function() {
 	    }
 	}
 
+$(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
 
 	console.log(user);
@@ -333,7 +333,7 @@ $(document).ready(function() {
 	}
 
 	var volunteer = user.scores;
-	var opportunities = ['Police', 'Fire Station', 'Red Cross', 'Youth Outreach', 'Charity', 'Habitat for Humanity']
+	var opportunities = ['Police', 'Fire Station', 'Red Cross', 'Youth Outreach', 'Charity', 'Habitat for Humanity'];
 
 	for (var i = 0; i < volunteer.length; i++) {
 		if (volunteer[i] > 3) {
@@ -342,13 +342,12 @@ $(document).ready(function() {
 	}
 
 	$('#profilePic').append("<img class='pull-right' src="+user.photo+" width='100px' height='100px'>");
+
 	$('#userName').html(user.user);
+
 	for (var i = 0; i < powers.length; i++) {
 		$('#powers').append("<button class='btn btn-danger' value=\""+places[i]+"\">"+powers[i]+"</button>");
-	};
-
-	initAutocomplete();
-
+	}
 
 	$('.btn').on('click', function(){
 		var place = $(this).attr("value");
