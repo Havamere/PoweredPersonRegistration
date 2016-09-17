@@ -48,8 +48,8 @@ function initAutocomplete() {
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
-    console.log(input);
     var searchBox = new google.maps.places.SearchBox(input);
+    console.log(searchBox);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
     // Bias the SearchBox results towards current map's viewport.
