@@ -206,7 +206,7 @@ $(document).ready(function() {
 		var input = $('#pac-input');
 		input.val('');
 		input.val(input.val() + place);
-		$('input').trigger({type: 'keydown', which: 13});
+		input.trigger({type: 'keydown', which: 13});
 		//input.val('');
 	});
 });
