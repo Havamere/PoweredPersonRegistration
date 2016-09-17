@@ -131,7 +131,7 @@ $(document).ready(function() {
 	      });
 	      map.fitBounds(bounds);
 	    });
-	  }
+	}
 
 	// Bias the autocomplete object to the user's geographical location,
 	// as supplied by the browser's 'navigator.geolocation' object.
