@@ -39,10 +39,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function initAutocomplete() {
-    var center = {lat: -33.8688, lng: 151.2195};
+    var center = {lat: 0, lng: 0};
     var map = new google.maps.Map(document.getElementById('map'), {
       center: center,
-      zoom: 7,
+      zoom: 1,
       mapTypeId: 'roadmap'
     });
 
@@ -65,6 +65,8 @@ function initAutocomplete() {
       if (places.length === 0) {
         return;
       }
+
+      console.log(places);
 
       // Clear out the old markers.
       markers.forEach(function(marker) {
@@ -106,147 +108,6 @@ function initAutocomplete() {
     });
 }
 
-function processButtonSearch(location) {
-  geocoder = new google.maps.Geocoder();
-  geocoder.geocode(location, function (data) {
-    var lat = data[0].geometry.location.lat();
-    var lng = data[0].geometry.location.lng();
-    var origin = new google.maps.LatLng(lat, lng);
-    // plot origin
-  });
-}
-
-// Bias the autocomplete object to the user's geographical location,
-// as supplied by the browser's 'navigator.geolocation' object.
-function geolocate() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var geolocation = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            var circle = new google.maps.Circle({
-                center: geolocation,
-                radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
-        });
-    }
-}
-
-// Adds a marker to the map and push to the array.
-function addMarker(location) {
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map
-    });
-    markers.push(marker);
-    console.log(markers);
-}
-
-// Sets the map on all markers in the array.
-function setMapOnAll(map) {
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-    }
-}
-
-// Removes the markers from the map, but keeps them in the array.
-function clearMarkers() {
-    setMapOnAll(null);
-}
-
-// Deletes all markers in the array by removing references to them.
-function deleteMarkers() {
-    clearMarkers();
-    markers = [];
-}
-
-// Shows any markers currently in the array.
-function showMarkers() {
-    setMapOnAll(map);
-}
-
-function newResults() {
-    console.log(typeof(markerArr));
-    console.log(markerArr);
-
-    //Refreshes the map results div with the new information
-    $("#list2").empty();
-
-    if (markerArr) {
-        for (var i = 0; i < markerArr.length; i++) {
-            markerArr[i].setMap(null);
-        }
-    }
-    infoWindow = new google.maps.InfoWindow();
-    service = new google.maps.places.PlacesService(map);
-
-    var type = $(this).text();
-    var request = {
-        bounds: map.getBounds(),
-        map: map,
-        location: haightAshbury,
-        keyword: type,
-        rankBy: google.maps.places.RankBy.PROMINENCE,
-        radius: 5000,
-        zoom: 13,
-        limit: 5,
-    };
-
-    service.radarSearch(request, callback);
-
-    function callback(results, status) {
-        // console.log(results)//Array of results with place information
-        markerArr = [];
-        for (var i = 0; i < results.length; i++) {
-            service.getDetails(results[i], function(result, status) {
-                // console.log(result);
-                if (result.rating > 4) {
-	                console.log("Only the best of the best, Ratings are greater than 4");
-	                addMarker(result);
-	                addResults(result);
-                }                  
-            });
-        }//End for loop
-    }
-
-    function addResults(place) {
-            var b = $('<button>');
-                b.addClass('btn btn-default addToItin');
-                b.text('Add To Itinerary');
-                b.attr('data-name', place.name);
-                b.attr('data-addr', place.formatted_address);
-                b.attr('data-phone', place.formatted_phone_number);
-                b.attr('data-rating', place.rating);
-    
-            $('#list2').append("<li><p><b>Name: </b>" + place.name + "</p><p><b>Address: </b>" + place.formatted_address + "</p><p><b>Phone Number: </b>" + place.formatted_phone_number + "</p><p><b>Rating: </b>" + place.rating + "</p></li>");
-            $('#list2').append(b);
-    }
-
-    function addMarker(place) {
-
-        var marker = new google.maps.Marker({
-            map: map,
-            position: place.geometry.location,
-
-        });
-        markerArr.push(marker);
-        console.log(markerArr);
-
-        google.maps.event.addListener(marker, 'click', function() {
-            service.getDetails(place, function(result, status) {
-                // console.log(result);
-                if (status !== google.maps.places.PlacesServiceStatus.OK) {
-                    console.error(status);
-                    return;
-                }
-                infoWindow.setContent("<p><b>Name:</b>" + result.name + "<p><b>address:  </b>" + result.formatted_address + "<p><b>phone number:  </b>" + result.formatted_phone_number + "<p><b>rating: </b>" + result.rating);
-                infoWindow.open(map, marker);
-            });
-        });
-    }
-}
 
 $(document).ready(function() {
 	var user = JSON.parse(sessionStorage.getItem('user'));
@@ -336,6 +197,12 @@ $(document).ready(function() {
 	$('.btn').on('click', function(){
 		var place = $(this).attr("value");
 		console.log(place);
-  		newResults(place);
+		var input = $('#pac-input');
+		input.val().empty();
+		input.val(input.val() + place);
+		$('input').trigger({
+		    type: 'keypress',
+		    which: 13
+		});
 	});
 });
