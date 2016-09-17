@@ -8,7 +8,7 @@ body {
 	font-family: Marvel;
 }
 
-#id {
+#bg {
     background: url('../images/backdrop.jpg');
     opacity: 0.4;
     z-index: -5;
