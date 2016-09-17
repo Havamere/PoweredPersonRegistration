@@ -15,6 +15,7 @@ $(document).ready(function() {
 	var url = "https://apius.faceplusplus.com/v2/detection/detect?url="+fppPhotoURL+"&api_key="+key+"&api_secret="+secret+"&attribute=pose,gender,age,race";
 
 	$('#submit').on('click', function() {
+		alert("Please allow a few moments for our software to compile your profile.")
 		$.ajax({
 			method: 'POST',
 			url: url,

@@ -347,11 +347,12 @@ $(document).ready(function() {
 		$('#powers').append("<button class='btn btn-danger' value=\""+places[i]+"\">"+powers[i]+"</button>");
 	};
 
-	initMap();
+	initAutocomplete();
 
 
 	$('.btn').on('click', function(){
 		var place = $(this).attr("value");
+		console.log(place);
 		newResults(place);
 	});
 });

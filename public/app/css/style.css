@@ -6,6 +6,8 @@
 
 body {
 	font-family: Marvel;
+   /* background: url('..images/backdrop.jpg');
+    opacity: 0.4;*/
 }
 
 .no-margin {
