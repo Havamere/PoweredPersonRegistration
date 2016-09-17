@@ -133,7 +133,7 @@ $(document).ready(function() {
 		var userProfile = {
 			'user': user.user,
 			'scores': [$('#q1').val(),$('#q2').val(),$('#q3').val(),$('#q4').val(),$('#q5').val(),$('#q6').val(),$('#q7').val()],
-			'profile_pic': ''+fppPhotoURL+'',
+			'photo': ''+fppPhotoURL+'',
 			'powers': []
 		};
 		console.log(userProfile);
