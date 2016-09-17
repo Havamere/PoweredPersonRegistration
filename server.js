@@ -53,16 +53,17 @@ app.post('/logIn', function(req, res) {
 		if (err) console.log(err);
 		//confirms data
 		console.log("data: " + data);
-		console.log("name: " + data.user);
-		
+
 		data = data || {};
 
 		if (data.user == registrant.user) {
 			//checks if data attribute for for scan page completed is true
 			if (data.completed === true) {
+				console.log(data);
 				//informs user of welcom back, and re-directs user to profile page
 				res.json({user: data, msg: "Welcome back!", url: '/profile.html'})	
 			} else {
+				console.log(data);
 				//informs user that scan page was not completed, and redirects to scan page
 				res.json({user: data, msg: "Please complete your scan and questionnaire.", url: '/scan.html'})
 			}
