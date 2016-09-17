@@ -268,7 +268,7 @@ $(document).ready(function() {
 
 	console.log(user);
 
-	var powers = user.user.powers;
+	var powers = user.powers;
 	var places = [];
 	//Aim Accuracy, Agility, Endurance, Enhanced Senses, Espionage, Flight, Invulnerability, Luck, Magic, Martial Arts, Mind Control, Regeneration, Speed, Stamina, Strategist, Strength, Telekenisis, Telepathy, Weather Control
 	for (var i = 0; i < powers.length; i++) {
