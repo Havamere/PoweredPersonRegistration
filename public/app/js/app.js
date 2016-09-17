@@ -20,7 +20,7 @@ $('#Log-in').click(function(){
 
 		  	console.log(data);
 
-		  	sessionStorage.setItem('user', JSON.stringify(data.user);
+		  	sessionStorage.setItem('user', JSON.stringify(data.user));
 
 		  	window.location = data.url;
 		  });
